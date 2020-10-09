@@ -1,0 +1,23 @@
+service: lambdaedge-cognito-auth
+# app and org for use with dashboard.serverless.com
+#app: your-app-name
+#org: your-org-name
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  # region: <YOUR_REGION>
+  # profile: <YOUR PROFILE>
+
+package:
+  exclude:
+    - configGen.js
+
+functions:
+  cognito-auth:
+    handler: handler.auth
+    events:
+      - cloudFront:
+          eventType: viewer-request
+          origin: https://www.google.com    # REPLACE WITH YOUR ORIGIN
+
